@@ -6,17 +6,21 @@ import questions from '../data/data';
 const QuizScreen = () => {
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [isAnswered, setIsAnswered] = useState(false);
 
   const handleAnswerPress = index => {
-    setSelectedAnswer(index);
+    if (!isAnswered) {
+      setSelectedAnswer(index);
+      setIsAnswered(true);
+    }
   };
-
   const handleNextQuestion = () => {
     if (currentQuestion < questions.length - 1) {
       setCurrentQuestion(currentQuestion + 1);
       setSelectedAnswer(null);
+      setIsAnswered(false);
     } else {
-      alert('Quiz Completed! Congrats!');
+      alert('Quiz Completed!');
     }
   };
 
@@ -46,15 +50,21 @@ const QuizScreen = () => {
                   ? styles.correctOption
                   : styles.incorrectOption
                 : null,
+              isAnswered ? styles.disabledOption : null,
             ]}
-            onPress={() => handleAnswerPress(index)}>
+            onPress={() => handleAnswerPress(index)}
+            disabled={isAnswered} // Disable options after selection
+          >
             <Text style={styles.optionText}>{item}</Text>
           </TouchableOpacity>
         )}
       />
 
       <TouchableOpacity
-        style={styles.nextButton}
+        style={[
+          styles.nextButton,
+          selectedAnswer === null ? styles.disabledButton : null,
+        ]}
         onPress={handleNextQuestion}
         disabled={selectedAnswer === null}>
         <Text style={styles.nextButtonText}>Next</Text>

@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     color: '#F4F1F1', // White text for selected option
   },
   nextButton: {
-    backgroundColor: '#A8D0E6', // Blue pastel
+    backgroundColor: '#3a9fbf', // Blue pastel
     padding: 14,
     borderRadius: 8,
     alignItems: 'center',
@@ -61,6 +61,9 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 16,
     fontWeight: 'bold',
+  },
+  disabledButton: {
+    backgroundColor: '#ccc',
   },
 });
 export default styles;

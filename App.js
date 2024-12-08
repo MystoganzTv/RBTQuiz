@@ -9,7 +9,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name='Quiz' component={QuizScreen} />
+        <Stack.Screen name='RBTQuiz' component={QuizScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
