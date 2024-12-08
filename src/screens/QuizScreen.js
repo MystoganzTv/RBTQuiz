@@ -1,7 +1,13 @@
-import styles from '../styles/quizStyle';
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, FlatList } from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  FlatList,
+} from 'react-native';
 import questions from '../data/data';
+import styles from '../styles/quizStyle';
 
 const QuizScreen = () => {
   const [selectedAnswer, setSelectedAnswer] = useState(null);
@@ -14,6 +20,7 @@ const QuizScreen = () => {
       setIsAnswered(true);
     }
   };
+
   const handleNextQuestion = () => {
     if (currentQuestion < questions.length - 1) {
       setCurrentQuestion(currentQuestion + 1);
@@ -59,6 +66,26 @@ const QuizScreen = () => {
           </TouchableOpacity>
         )}
       />
+
+      {isAnswered &&
+        current.explanations &&
+        Array.isArray(current.explanations) && (
+          <View style={styles.explanationBox}>
+            <Text style={styles.explanationHeader}>Explanation:</Text>
+            {current.explanations.map((explanation, index) => (
+              <Text
+                key={index}
+                style={[
+                  styles.explanationText,
+                  index === current.correctOption
+                    ? styles.correctExplanation
+                    : styles.incorrectExplanation,
+                ]}>
+                {current.options[index]}: {explanation}
+              </Text>
+            ))}
+          </View>
+        )}
 
       <TouchableOpacity
         style={[
